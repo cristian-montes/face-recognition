@@ -7,23 +7,11 @@ import Rank from './components/Rank/Rank';
 import './App.css';
 
 const particlesOptions = {
-    // particles: {
-    //   line_linked: {
-    //     shadow: {
-    //       enable: true,
-    //       color: "#3CA9D1",
-    //       blur: 5
-    //     }
-    //   }
-    // },
+  
     fpsLimit: 100,
           interactivity: {
             detectsOn: "canvas",
             events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
               onHover: {
                 enable: true,
                 mode: "repulse",
@@ -39,11 +27,7 @@ const particlesOptions = {
               },
               push: {
                 quantity: 4,
-              },
-              repulse: {
-                distance: 200,
-                duration: 0.4,
-              },
+              }
             },
           },
           particles: {
@@ -56,9 +40,6 @@ const particlesOptions = {
               enable: true,
               opacity: 0.5,
               width: 1,
-            },
-            collisions: {
-              enable: true,
             },
             move: {
               direction: "none",
@@ -75,22 +56,24 @@ const particlesOptions = {
               },
               value: 80,
             },
-            opacity: {
-              value: 0.5,
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              random: true,
-              value: 5,
-            },
           }
         
 
 }
 
 class App extends Component {
+  state ={
+    input: '',
+  }
+
+  onInputChange = (event) => {
+    console.log(event.target.value);
+  }
+
+  onButtonSubmit = () => {
+    console.log('clicking');
+  }
+
   render(){
   return (
     <div className="App">
@@ -100,7 +83,7 @@ class App extends Component {
       <Navigation/>
       <Logo/>
       <Rank/>
-      <ImageLinkForm/>
+      <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
       {/* <FaceRecognition/> */}
     </div>
   );
