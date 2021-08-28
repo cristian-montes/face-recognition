@@ -15,9 +15,20 @@ class Singin extends React.Component {
             this.setState({ signInPassword:event.target.value })
         }
 
-        onSubmitSignIn = () => {
-            console.log(this.state);
-            this.props.onRouteChange('home');
+        onSubmitSignIn = async () => {
+            const usersInfo = await fetch('http://localhost:3000/signin', {
+                method:'POST',
+                headers:{'Content-Type': 'application/json'},
+                body:JSON.stringify({
+                    email: this.state.signInEmail,
+                    password: this.state.signInPassword
+                })
+            })
+            const data = await usersInfo.json();
+            if(data === 'success'){
+                this.props.onRouteChange('home');
+            }
+
         }
 
     render(){
