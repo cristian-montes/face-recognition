@@ -72,21 +72,23 @@ const particlesOptions = {
 
 }
 
-class App extends Component {
-  state ={
-    input: '',
-    imageUrl:'',
-    box:{},
-    route:'signin',
-    isSignedIn: false,
-    user:{
-      id:'',
-      name:'',
-      email:'',
-      entries: 0,
-      joined: ''
-    }
+const initialState ={
+  input: '',
+  imageUrl:'',
+  box:{},
+  route:'signin',
+  isSignedIn: false,
+  user:{
+    id:'',
+    name:'',
+    email:'',
+    entries: 0,
+    joined: ''
   }
+}
+
+class App extends Component {
+  state = initialState;
 
   loadUser = (data) => {
     this.setState({user:{
@@ -109,7 +111,6 @@ class App extends Component {
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
     const height = Number(image.height);
-    // console.log(` witdth=${width}, height=${height}`);
     return{
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
@@ -143,8 +144,8 @@ class App extends Component {
         .then(count => {
           this.setState(Object.assign(this.state.user, {entries:count}))
         })
+          .catch(console.log);
       }
-    
       this.displayFaceBox(this.calculateFaceLocation(response))
     })
     .catch(err => console.log(err));
@@ -152,7 +153,7 @@ class App extends Component {
 
   onRouteChange =(route) => {
     if (route === 'signput') {
-      this.setState({isSignedIn: false})
+      this.setState({initialState})
     } else if( route === 'home'){
         this.setState({isSignedIn: true})
     }
