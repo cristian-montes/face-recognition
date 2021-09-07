@@ -20,21 +20,24 @@ class Register extends React.Component {
         this.setState({ password:event.target.value })
     }
 
-    onSubmitSignIn = async () => {
-        const usersInfo = await fetch('http://localhost:3000/register', {
+    onSubmitSignIn =  () => {
+         fetch('http://localhost:3000/register', {
             method:'POST',
             headers:{'Content-Type': 'application/json'},
             body:JSON.stringify({
-                email: this.state.emailmail,
-                password: this.state.password,
-                name: this.state.name
+                name: this.state.name,
+                email: this.state.email,
+                password: this.state.password
+               
             })
         })
-        const user = await usersInfo.json();
-        if(user){
-            this.props.loadUser(user);
-            this.props.onRouteChange('home');
-        }
+        .then(response => response.json())
+        .then(user => {
+            if(user){
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
+        })
 
     }
 
